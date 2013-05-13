@@ -79,6 +79,7 @@
     [levelSource removeAllObjects];
     
     bool nextLevelLoaded = [self loadLevel:level+1];
+    
     if (nextLevelLoaded) {
         playerHasContactToFloor=NO;
         playerSpeedX=0;
@@ -216,11 +217,11 @@
     
     [self restartLevel];
      
-    CADisplayLink *callGameEngine =
+    CADisplayLink *gameEngine =
     [CADisplayLink displayLinkWithTarget:self
                                 selector:@selector(gameEngine)];
-    [callGameEngine setFrameInterval:2];
-    [callGameEngine addToRunLoop:[NSRunLoop currentRunLoop]
+    [gameEngine setFrameInterval:2];
+    [gameEngine addToRunLoop:[NSRunLoop currentRunLoop]
                          forMode:NSDefaultRunLoopMode];
     
 }
