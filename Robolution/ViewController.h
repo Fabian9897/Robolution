@@ -39,7 +39,7 @@
     NSMutableArray *platformGraphicSource;
     NSMutableArray *animationSource;
     
-    // Parallax-Scrolling
+    // Parallax 
     Sprite *layer0;
     Sprite *layer1;
     Sprite *fogLayer;
