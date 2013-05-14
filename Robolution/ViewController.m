@@ -274,6 +274,8 @@
                 p--;
             }
             if (!specialItem)
+                
+                /*HIER KOLLISIONSABFRAGE EINFUEGEN*/
                 if (player.center.y<tmpBottom.frame.origin.y) {
                     
                     // Bei Bodenkontakt: bouncen

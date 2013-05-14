@@ -12,8 +12,7 @@
 #import "Sprite.h"
 
 @interface ViewController : UIViewController {
-    // Das duerfte bekannt sein:
-    UIImageView *canvas;
+     UIImageView *canvas;
     Sprite *player;
     int zaehler;
     bool normalAction;
@@ -27,7 +26,7 @@
     double playerSpeedX;
     double playerSpeedY;
     bool playerHasContactToFloor; // Bodenkontakt fuer Spruenge
-    bool playerAddJumpEnergy; // Sprungkraft
+    bool playerAddJumpEnergy;  
     int playerLooksLike; // fuer Animation
     
     // Plattformen
@@ -35,7 +34,7 @@
     NSMutableArray *platforms;
     int maxPlatformWidth;
     
-    // Preloader fuer die Grafiken
+    // Preloader  
     NSMutableArray *imageSource;
     NSMutableArray *platformGraphicSource;
     NSMutableArray *animationSource;
