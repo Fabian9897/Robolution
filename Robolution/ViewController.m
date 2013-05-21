@@ -37,7 +37,11 @@
         for (int col=0;col<[levelRow length];col++) {
             NSString *part = [levelRow substringWithRange:NSMakeRange(col, 1)];
             // Wenn ASCII-Zeichen nicht leer ist
-            if(![part isEqualToString:@"-"]) {
+           
+            
+            
+            
+                if(![part isEqualToString:@"-"]) {
                 // dann Symbol auslesen
                 int spriteTyp = [part intValue];
                 if ([part isEqualToString:@"^"]) spriteTyp=spring; // Sprungfeder

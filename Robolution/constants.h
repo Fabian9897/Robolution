@@ -8,10 +8,9 @@
 #define bogeyewalk 4
 
 //PLATFORMS
-#define stahlLinks 5
-#define stahlRechts 6
-#define buehneHoch 7
-#define buehneRunter 8
+#define steel 5
+ #define stageUp 6
+#define stageDown 7
 
  #define spring 5
 #define extralife 6
