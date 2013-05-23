@@ -2,15 +2,23 @@
 #import "constants.h"
 
 @implementation Sprite
-@synthesize pic, mask;
+@synthesize mask;
 
-- (id) initWithImage: (UIImage *) img
-     spriteTyp: (double) sTyp
-    parentView: (UIView *) parentView {
-  if (self == [super init]) {
-    pic = [[UIImageView alloc] initWithImage:img];
-    pic.hidden = YES;
-    [self addSubview:pic];
+- (id) initWithImageResource:(id)resource spriteTyp:(double)sTyp parentView:(UIView *)parentView
+
+{
+  if (self = [super init]) {
+      if ([[resource class] isSubclassOfClass:[UIImage class ]]) {
+          _pic = [[UIImageView alloc] initWithImage:resource];
+
+          
+      }
+      else if ( [[resource class] isSubclassOfClass:[NSArray class]]){
+          _pic = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame) )];
+          _pic.animationImages = resource;
+      }
+    _pic.hidden = YES;
+    [self addSubview:_pic];
     [parentView addSubview:self];
     spriteTyp = sTyp;
     movingDirection = right;
@@ -19,7 +27,7 @@
   }
   return self;
 }
-
+ 
 - (void) addMask: (double) x 
                y:(double) y 
            width:(double)width 
@@ -30,34 +38,41 @@
 
 - (void) setSpriteTyp: (UIImage *) img
                   typ: (int) sTyp {
-  pic.frame = CGRectMake(pic.frame.origin.x,
-                         pic.frame.origin.y,
+  _pic.frame = CGRectMake(_pic.frame.origin.x,
+                         _pic.frame.origin.y,
                          img.size.width,
                          img.size.height);
-  pic.image = img;
+  _pic.image = img;
   spriteTyp = sTyp;
+}
+
+- (void) setSprites: (NSArray *) images
+{
+    
+    _pic.animationImages = images;
+ 
 }
 
 - (void) setAnimationTyp: (NSArray *) img
                      spriteTyp: (int) sTyp
                 duration: (double) duration
                   repeat: (int) repeat {
-    pic.animationImages = img;
-    pic.animationDuration = duration;
-    pic.animationRepeatCount = repeat;
-    [pic startAnimating];
+    _pic.animationImages = img;
+    _pic.animationDuration = duration;
+    _pic.animationRepeatCount = repeat;
+    [_pic startAnimating];
     spriteTyp = sTyp;
 }
 
 - (void) moveBy: (double) x
       y: (double) y {
-  pic.center = CGPointMake(pic.center.x+x, pic.center.y+y);
+  _pic.center = CGPointMake(_pic.center.x+x, _pic.center.y+y);
 }
 
 - (void) setCenter: (double) x
          y: (double) y {
-  pic.center = CGPointMake(x, y);
-  pic.hidden = NO;
+  _pic.center = CGPointMake(x, y);
+  _pic.hidden = NO;
 }
 
 - (bool) detectCollisionWith: (Sprite *) sprite {
@@ -74,8 +89,8 @@
         //CGRect aus Array holen
         CGRect rect = [[mask objectAtIndex:p] CGRectValue];
         // Koordinatenaddition
-        CGRect sMask = CGRectMake(pic.frame.origin.x + rect.origin.x,
-                                  pic.frame.origin.y + rect.origin.y,
+        CGRect sMask = CGRectMake(_pic.frame.origin.x + rect.origin.x,
+                                  _pic.frame.origin.y + rect.origin.y,
                                   rect.size.width,
                                   rect.size.height);
         // eigentliche Kollisionsabfrage
@@ -87,15 +102,15 @@
 }
 
 - (void) mirrorSprite:(int) direction {
-  pic.transform = CGAffineTransformMakeScale(direction,1);
+  _pic.transform = CGAffineTransformMakeScale(direction,1);
 }
 
-- (CGRect) frame {return pic.frame;}
-- (CGPoint) center {return pic.center;}
+- (CGRect) frame {return _pic.frame;}
+- (CGPoint) center {return _pic.center;}
 - (int) spriteTyp { return spriteTyp; }
 - (int) movingDirection { return movingDirection; }
 - (void) setMovingDirection: (int) a {movingDirection = a;}
-- (void) setAlpha: (float) a {pic.alpha = a;};
+- (void) setAlpha: (float) a {_pic.alpha = a;};
 
 
 - (void) setId: (int) a {sId=a;}

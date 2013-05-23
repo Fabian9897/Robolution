@@ -1,8 +1,7 @@
 #import <UIKit/UIKit.h>
 
 @interface Sprite : UIView {
-    UIImageView *pic;
-    NSMutableArray *mask;
+     NSMutableArray *mask;
   int spriteTyp;
   int movingDirection;
     int sId;
@@ -12,7 +11,7 @@
 @property (nonatomic, strong) UIImageView *pic;
 @property (nonatomic, strong) NSMutableArray *mask;
 
-- (id) initWithImage: (UIImage *) img
+- (id) initWithImageResource: (id) resource
      spriteTyp: (double) sTyp
     parentView: (UIView*) parentView;
 
