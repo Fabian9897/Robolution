@@ -117,7 +117,7 @@
 
 - (void)restartLevel {
     normalAction=NO;
-   // AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
   // externLevel = level;
     [player setAlpha:1.0];
 

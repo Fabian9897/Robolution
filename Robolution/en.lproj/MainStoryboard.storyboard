@@ -12,7 +12,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="background.png" translatesAutoresizingMaskIntoConstraints="NO" id="qFi-f1-ZBR">
+                            <imageView userInteractionEnabled="NO" alpha="0.40000000000000013" contentMode="scaleToFill" image="bg_menue.png" translatesAutoresizingMaskIntoConstraints="NO" id="qFi-f1-ZBR">
                                 <constraints>
                                     <constraint firstAttribute="height" constant="465" id="Hm5-gu-82f"/>
                                 </constraints>
@@ -105,7 +105,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="background.png" translatesAutoresizingMaskIntoConstraints="NO" id="oez-e0-uUn">
+                            <imageView userInteractionEnabled="NO" alpha="0.40000000000000013" contentMode="scaleToFill" image="bg_menue.png" translatesAutoresizingMaskIntoConstraints="NO" id="oez-e0-uUn">
                                 <constraints>
                                     <constraint firstAttribute="width" constant="487" id="2NP-wy-ovv"/>
                                 </constraints>
@@ -295,6 +295,7 @@
                             <constraint firstAttribute="bottom" secondItem="69h-v0-Ujj" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="PMa-nv-ufK"/>
                             <constraint firstAttribute="bottom" secondItem="2oK-9A-3Kc" secondAttribute="bottom" constant="21" id="PXy-E6-MIu"/>
                             <constraint firstItem="qh4-p0-77p" firstAttribute="bottom" secondItem="98d-uX-i7S" secondAttribute="bottom" type="default" id="Pm3-uQ-sme"/>
+                            <constraint firstItem="dZg-XV-SOA" firstAttribute="top" secondItem="9W2-MX-coq" secondAttribute="top" constant="-4" id="TTr-VW-mc2"/>
                             <constraint firstItem="oez-e0-uUn" firstAttribute="top" secondItem="9W2-MX-coq" secondAttribute="top" type="default" id="VcT-zk-sTi"/>
                             <constraint firstItem="W9T-Ka-mTw" firstAttribute="leading" secondItem="9W2-MX-coq" secondAttribute="leading" constant="13" id="YYc-RX-w9L"/>
                             <constraint firstItem="6Pj-pQ-Nrr" firstAttribute="leading" secondItem="9W2-MX-coq" secondAttribute="leading" constant="113" id="ckN-ui-dRX"/>
@@ -304,7 +305,6 @@
                             <constraint firstItem="oez-e0-uUn" firstAttribute="leading" secondItem="9W2-MX-coq" secondAttribute="leading" type="default" id="ivY-Cv-7rr"/>
                             <constraint firstAttribute="trailing" secondItem="69h-v0-Ujj" secondAttribute="trailing" constant="31" id="jBJ-tI-SIh"/>
                             <constraint firstItem="dZg-XV-SOA" firstAttribute="centerX" secondItem="oez-e0-uUn" secondAttribute="centerX" type="default" id="lSk-Vd-0as"/>
-                            <constraint firstItem="dZg-XV-SOA" firstAttribute="top" secondItem="9W2-MX-coq" secondAttribute="top" type="default" id="nbc-vG-KNS"/>
                             <constraint firstItem="W9T-Ka-mTw" firstAttribute="top" secondItem="9W2-MX-coq" secondAttribute="top" constant="11" id="qWX-hN-tTp"/>
                             <constraint firstAttribute="trailing" secondItem="aFn-4g-W3X" secondAttribute="trailing" constant="119" id="qze-lX-iTi"/>
                             <constraint firstItem="6Pj-pQ-Nrr" firstAttribute="top" secondItem="2oK-9A-3Kc" secondAttribute="top" type="default" id="te4-mo-EW9"/>
@@ -515,7 +515,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="background.png" translatesAutoresizingMaskIntoConstraints="NO" id="1B9-sD-GtS"/>
+                            <imageView userInteractionEnabled="NO" alpha="0.40000000000000013" contentMode="scaleToFill" image="bg_menue.png" translatesAutoresizingMaskIntoConstraints="NO" id="1B9-sD-GtS"/>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UBE-lJ-p1y">
                                 <constraints>
                                     <constraint firstAttribute="width" constant="194" id="lyy-X5-qcv"/>
@@ -623,6 +623,7 @@
         <image name="IMG_0056.PNG" width="960" height="640"/>
         <image name="IMG_0058.PNG" width="960" height="640"/>
         <image name="background.png" width="320" height="480"/>
+        <image name="bg_menue.png" width="640" height="480"/>
         <image name="exit_button.png" width="60" height="40"/>
         <image name="level_button.png" width="61" height="60"/>
         <image name="logo.png" width="285" height="145"/>
@@ -657,7 +658,7 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="ejl-7f-Vb9"/>
+        <segue reference="3Gu-vV-K8Y"/>
         <segue reference="Uao-cl-UjV"/>
         <segue reference="jct-8K-kSR"/>
         <segue reference="uBO-fh-mPV"/>
