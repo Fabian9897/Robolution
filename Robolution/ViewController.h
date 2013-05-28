@@ -61,6 +61,9 @@
     UITextField *Level;
     
     UIButton *pause;
+    
+   // NSTimer *timer;
+
 
   //  bool bewegung;
 }

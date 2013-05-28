@@ -117,7 +117,7 @@
 
 - (void)restartLevel {
     normalAction=NO;
-    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+   // AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
   // externLevel = level;
     [player setAlpha:1.0];
 
@@ -158,16 +158,16 @@
     }
     
     
-    else if (level == 3) {       maxSteps = 7000;
+    else if (level == 3) {       maxSteps = 3000;
     }
     else if (level == 4) {       maxSteps = 8000;
     }
     else if (level == 5) {       maxSteps = 4000;
     }
-    else if (level == 6) {       maxSteps = 6000;         }
+    else if (level == 6) {       maxSteps = 5000;         }
     else if (level == 7) {       maxSteps = 5000;
     }
-    else if (level == 8) {       maxSteps = 4000;
+    else if (level == 8) {       maxSteps = 5500;
     }
 
     currentSteps =0;
@@ -323,7 +323,7 @@
     [platformGraphicSource addObject:[UIImage imageNamed:@"Kran.png"]]; 
     [platformGraphicSource addObject:[UIImage imageNamed:@"wasser.png"]];
     
-    Level = [[UITextField alloc ] initWithFrame:CGRectMake(230, 0, 27, 27)];
+    Level = [[UITextField alloc ] initWithFrame:CGRectMake(43, 0, 27, 27)];
     Level.backgroundColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:0];
      CGFloat yourSelectedFontSize = 24.0 ;
     UIFont *yourNewSameStyleFont = [Level.font fontWithSize:yourSelectedFontSize];
@@ -601,8 +601,7 @@
  
         [player setSpriteTyp:
          [[animationSource objectAtIndex:jump] objectAtIndex:1%5] typ:0];
-        currentSteps+= 10;
-        [self powerEngine];
+     
         
         
         //SCHRITTE ABZIEHEN
@@ -1183,7 +1182,7 @@
         playerAddJumpEnergy = YES;
         playerSpeedY = up*5;
         playerHasContactToFloor=NO;
-        currentSteps -= 3;
+        currentSteps+= 110;
         [self powerEngine];
  
     }

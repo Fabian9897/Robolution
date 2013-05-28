@@ -82,6 +82,9 @@
 
 - (void)viewDidLoad
 {
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+    
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }

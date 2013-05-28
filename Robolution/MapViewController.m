@@ -25,7 +25,7 @@
 - (void)viewDidLoad
 {
  
-    
+  /*
     MKUserLocation *userLocation = mapView.userLocation;
     MKCoordinateRegion region =
     MKCoordinateRegionMakeWithDistance (userLocation.location.coordinate, 50, 50);
@@ -43,7 +43,14 @@
     [mapView addAnnotation:annotationPoint];
     [mapView setRegion:region animated:NO];
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+
+*/	
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+    
+    
+    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning
