@@ -4,18 +4,16 @@
 #define stand 0
 #define walk 1
 #define jump 2
- #define platformUpAnimation 4
- //PLATFORMS
+  //PLATFORMS
  
  
- #define oel 6
+#define oel 6
 #define flag 7
 
 
 
 
-#define platformUp 10
-#define kran 9
+ #define kran 9
 #define kranBewegung 11
 #define wasser 12
 #define wasserAnimation 5
@@ -33,3 +31,15 @@
 #define up -1.5
 #define down 1
 
+
+
+#define stage 10
+#define stageAnimation 4
+
+/*
+typedef enum{
+    SpriteTypePlatform,
+    SpriteTypeWater,
+    SpriteTypeCrane
+}SpriteType;
+*/

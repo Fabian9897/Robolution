@@ -8,14 +8,27 @@
 #import "ViewController.h"
 #import "Sprite.h"
 #include "constants.h"
-//#import "LevelViewController.m"
+#import "RetryViewController.h"
+ //#import "LevelViewController.m"
 
  @implementation ViewController
+
+
+
+ 
 @synthesize canvas, rechtsButton, jumpButton, player, imageSource,linksButton,powerAnzeige;
 @synthesize animationSource, platforms, levelSource;
 @synthesize platformGraphicSource, layer0, layer1, fogLayer,Level;
 
+#pragma mark - publics
+
+-(void)jumpToLevel:(int)levelNumber
+{
+    level = levelNumber;
+}
+
 #pragma mark Levelvorbereitung
+
 - (bool)loadLevel: (int)currentLevel {
     
     NSString* pathOfLevelFile = [[NSBundle mainBundle]
@@ -39,7 +52,8 @@
             // Wenn ASCII-Zeichen nicht leer ist
             
             
-            
+        
+     
             
             if(![part isEqualToString:@"-"]) {
                 // dann Symbol auslesen
@@ -48,10 +62,10 @@
                 if ([part isEqualToString:@"X"]) spriteTyp=flag; // Zielflagge
                 if ([part isEqualToString:@"*"]) spriteTyp=oel; // Extraleben
                 if ([part isEqualToString:@"@"]) spriteTyp=bratwurst; // Bratwurst
-                if ([part isEqualToString:@"^"]) spriteTyp=platformUp; // platform
-                if ([part isEqualToString:@">"]) spriteTyp=kran; // Kran
+                 if ([part isEqualToString:@">"]) spriteTyp=kran; // Kran
                 if ([part isEqualToString:@"K"]) spriteTyp=kranBewegung; // Kran
                 if ([part isEqualToString:@"W"]) spriteTyp=wasser; // Kran
+                if ([part isEqualToString:@"S"]) spriteTyp=stage; // Kran
 
 
                 if ([part isEqualToString:@"#"]) {
@@ -103,8 +117,8 @@
 
 - (void)restartLevel {
     normalAction=NO;
-   // AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-  //  externlevel = level;
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+  // externLevel = level;
     [player setAlpha:1.0];
 
      steps = 0;
@@ -130,30 +144,35 @@
     
     powerAnzeige.image = [UIImage imageNamed:@"Power"];
 
-    if (level == 0)    {   maxSteps = 400;
-        currentSteps = maxSteps;
-        
+    if (level == 0)    {   maxSteps = 10000;
+          
     }
     
     
     else if (level == 1)
-                             {maxSteps = 300;
-        currentSteps = maxSteps;
+                             {maxSteps = 8000;
+     }
+    
+    else if (level == 2) {       maxSteps = 7000;
+    
     }
     
-    else if (level == 2) {       maxSteps = 200;     currentSteps = maxSteps;
     
+    else if (level == 3) {       maxSteps = 7000;
     }
-    
-    
-    else if (level == 3) {       maxSteps = 150;     currentSteps = maxSteps;
+    else if (level == 4) {       maxSteps = 8000;
     }
-    else if (level == 4) {       maxSteps = 100;     currentSteps = maxSteps;
+    else if (level == 5) {       maxSteps = 4000;
+    }
+    else if (level == 6) {       maxSteps = 6000;         }
+    else if (level == 7) {       maxSteps = 5000;
+    }
+    else if (level == 8) {       maxSteps = 4000;
     }
 
+    currentSteps =0;
     
-    
-    Level.text = [NSString stringWithFormat:@"%2d", level+1];
+   Level.text = [NSString stringWithFormat:@"%2d", level+1];
     
     
 }
@@ -163,6 +182,7 @@
     
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+    
     
     // Hintergrund vorbereiten
     canvas = [[UIImageView alloc] initWithFrame:[[UIScreen mainScreen]
@@ -178,8 +198,7 @@
     screenHeight = self.view.bounds.size.width;
     
     
-    //DEBUG
-    
+     
   powerAnzeige = [[UIImageView alloc] initWithFrame:CGRectMake(5, 0, 108,56)];
 
     
@@ -188,19 +207,19 @@
     // Parallax-Ebenen
     
     //   hinterste Ebene
-  //  layer0 = [[Sprite alloc] initWithImageResource: [UIImage imageNamed:@"bg_layer1.png"]
-            //                     spriteTyp:0
-         //                       parentView:canvas];
+   layer1 = [[Sprite alloc] initWithImageResource: [UIImage imageNamed:@"neu_layer_1.png"]
+                              spriteTyp:0
+                              parentView:canvas];
     
     // vordere Ebene
-   // layer1 = [[Sprite alloc] initWithImageResource: [UIImage imageNamed:@"bg_layer0.png"]
-        //                         spriteTyp:0
-         //                       parentView:canvas];
+    layer0 = [[Sprite alloc] initWithImageResource: [UIImage imageNamed:@"neu_layer_2.png"]
+                               spriteTyp:0
+                                parentView:canvas];
     
     // Nebel-Ebene
-    //fogLayer = [[Sprite alloc] initWithImage: [UIImage imageNamed:@"fairyfog.png"]
-       //                            spriteTyp:0
-        //                          parentView:canvas];
+     fogLayer = [[Sprite alloc] initWithImageResource: [UIImage imageNamed:@"fairyfog.png"]
+                                  spriteTyp:0
+                               parentView:canvas];
     
     
     platforms = [[NSMutableArray alloc] init];
@@ -242,8 +261,7 @@
                                 nil]];
   
     [animationSource addObject:[NSArray arrayWithObjects:
-                                [UIImage imageNamed:@"Platform.png"],
-                                [UIImage imageNamed:@"Platform1.png"],
+                                [UIImage imageNamed:@"Platform"],
                                 [UIImage imageNamed:@"Platform2.png"],
                                 [UIImage imageNamed:@"Platform3.png"],
                                 [UIImage imageNamed:@"Platform4.png"],
@@ -256,6 +274,22 @@
                                 [UIImage imageNamed:@"Platform11.png"],
                                 [UIImage imageNamed:@"Platform12.png"],
                                 [UIImage imageNamed:@"Platform13.png"] ,
+                                [UIImage imageNamed:@"Platform12.png"],
+                                [UIImage imageNamed:@"Platform11.png"],
+                                [UIImage imageNamed:@"Platform10.png"],
+                                [UIImage imageNamed:@"Platform9.png"],
+                                [UIImage imageNamed:@"Platform8.png"],
+                                [UIImage imageNamed:@"Platform7.png"],
+                                [UIImage imageNamed:@"Platform6.png"],
+                                [UIImage imageNamed:@"Platform5.png"],
+                                [UIImage imageNamed:@"Platform4.png"],
+                                [UIImage imageNamed:@"Platform3.png"],
+                                [UIImage imageNamed:@"Platform2.png"],
+                                [UIImage imageNamed:@"Platform"],
+
+                                
+                                
+                                
                                 nil]];
     
     // Wasser
@@ -283,17 +317,11 @@
     [platformGraphicSource addObject:[UIImage imageNamed:@"Oel_tropfen.png"]];
     [platformGraphicSource addObject:[UIImage imageNamed:@"flag.png"]];
     [platformGraphicSource addObject:[UIImage imageNamed:@"Feind.png"]];
-   // [platformGraphicSource addObject:[animationSource objectAtIndex:4]];
+    //[platformGraphicSource addObject:[animationSource objectAtIndex:4]];
     [platformGraphicSource addObject:[UIImage imageNamed:@"Kran.png"]];
     [platformGraphicSource addObject:[UIImage imageNamed:@"Platform.png"]];
-    [platformGraphicSource addObject:[UIImage imageNamed:@"Kran.png"]];
+    [platformGraphicSource addObject:[UIImage imageNamed:@"Kran.png"]]; 
     [platformGraphicSource addObject:[UIImage imageNamed:@"wasser.png"]];
-
-    //ÄNDERN
-    level=0;
-    
-       
-    
     
     Level = [[UITextField alloc ] initWithFrame:CGRectMake(230, 0, 27, 27)];
     Level.backgroundColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:0];
@@ -326,6 +354,17 @@
                                                                75, 48)];
     jumpButton.image = [UIImage imageNamed:@"jump.png"];
     [canvas addSubview:jumpButton];
+    
+    
+    
+    
+    
+    pause = [[UIButton alloc] initWithFrame:CGRectMake(screenWidth- 78, 0, 60, 33)];
+    [pause setBackgroundImage:[UIImage imageNamed: @"exit_button"] forState:UIControlStateNormal];
+    [pause setTitle:[NSString stringWithFormat:@"esc"] forState:UIControlStateNormal];
+    [pause addTarget:self action:@selector(pause:) forControlEvents:UIControlEventTouchUpInside];
+    [canvas addSubview:pause];
+    
     
     // breiteste Plattform
     maxPlatformWidth=0;
@@ -383,7 +422,36 @@
                 [tmpBottom removeFromSuperview];
                 [platforms removeObject:tmpBottom];
                 
-                currentSteps += 50;
+                
+                
+                if (level ==0) {
+                    currentSteps -= 500;
+                }
+                
+                else if (level ==1) {
+                    currentSteps -= 500;
+                }
+                else if (level ==2) {
+                    currentSteps -= 500;
+                }
+                else if (level ==3) {
+                    currentSteps -= 405;
+                }
+                else if (level ==4) {
+                    currentSteps -= 305;
+                }
+                else if (level ==5) {
+                    currentSteps -= 405;
+                }
+                else if (level ==6) {
+                    currentSteps -= 305;
+                }
+                else if (level ==7) {
+                    currentSteps -= 300;
+                }
+                else if (level ==8) {
+                    currentSteps -= 250;
+                }
                 [self powerEngine];
 
              }
@@ -417,8 +485,7 @@
             
             {
                 
-                playerLooksLike=walk;
-
+ 
                 specialItem=YES;
                 if (player.center.y<tmpBottom.center.y + 50 ) {
                     
@@ -444,6 +511,7 @@
                 
             }
             
+                
             if (sTyp == wasser)
             {
                 
@@ -501,7 +569,6 @@
                 
             }
                  if (!specialItem)
-                
             /*HIER KOLLISIONSABFRAGE EINFUEGEN*/
                 if (player.center.y<tmpBottom.frame.origin.y) {
                     
@@ -534,6 +601,10 @@
  
         [player setSpriteTyp:
          [[animationSource objectAtIndex:jump] objectAtIndex:1%5] typ:0];
+        currentSteps+= 10;
+        [self powerEngine];
+        
+        
         //SCHRITTE ABZIEHEN
       }
     else  if (playerSpeedY >-3 && playerSpeedY<0)
@@ -595,7 +666,6 @@
     for (int currentPlatformInLoop = 0;
          currentPlatformInLoop < [levelSource count];
          currentPlatformInLoop++) {
-        
         int sTyp = [[[levelSource objectAtIndex:currentPlatformInLoop]
                      objectAtIndex:0] intValue];
         int posX = [[[levelSource objectAtIndex:currentPlatformInLoop]
@@ -616,7 +686,7 @@
                 [[Sprite alloc] initWithImageResource:[platformGraphicSource objectAtIndex:sTyp]
                                     spriteTyp: 0
                                    parentView: canvas];
-               
+                showPlatform.isVisible = TRUE;
                 
                 
                 if (sTyp==bratwurst)
@@ -627,37 +697,51 @@
                 
                 if (sTyp == wasser) {
                      
-                 
-                        
-                        
-                        
-                        
-                        
                         [showPlatform setAnimationTyp:[animationSource objectAtIndex:wasserAnimation]
                                          spriteTyp:wasser
                                           duration:0.5
                                             repeat:0];
-                        
-                        
-                        
-                        
-                        
-                
+                }
+                 if (sTyp == stage) {
+                    
+                    [showPlatform setAnimationTyp:[animationSource objectAtIndex:stageAnimation]
+                                     spriteTyp:stage
+                                      duration:2.5
+                                        repeat:0];
+                     
+                     
+                     
+                     showPlatform.pic.contentMode = UIViewContentModeBottom;
+                     
+                     
+//                   [UIView animateWithDuration:1.25 delay:0 options:UIViewAnimationOptionAutoreverse|UIViewAnimationOptionRepeat|UIViewAnimationOptionCurveLinear animations:^{
+//
+//                         CGRect frame = showPlatform.frame;
+//                         frame.size.height += 60;
+//                         showPlatform.frame = frame;
+//                     }completion:^(BOOL finished){
+//                         
+//                     }];
+                  
                 }
 
+                            
+
                 
+                /*
                 if (sTyp == platformUp)
                 {
                     
                     [showPlatform setAnimationTyp:[animationSource objectAtIndex:platformUpAnimation]spriteTyp:platformUp
                                          duration:0.5
                                            repeat:0];
-                   // [showPlatform.pic setAnimationDuration:.6];
-               //    [showPlatform.pic startAnimating];
+                    [showPlatform.pic setAnimationDuration:.6];
+               [showPlatform.pic startAnimating];
                     
 
-                    // showPlatform.pic.contentMode = UIViewContentModeTop;
+                      showPlatform.pic.contentMode = UIViewContentModeTop;
                 }
+                 */
                 // Auf Display
                 [showPlatform setCenter:posX-zaehler y:posY];
                 [showPlatform setId:currentPlatformInLoop];
@@ -695,14 +779,13 @@
         }
     }
     
-    
     for (int currentVisiblePlatformInLoop=0;
          currentVisiblePlatformInLoop < [platforms count];
          currentVisiblePlatformInLoop++) {
         
         Sprite *showPlatform=[platforms objectAtIndex:currentVisiblePlatformInLoop];
         int spriteId = [showPlatform sId];
-        
+
         // Daten holen
         int sTyp = [[[levelSource objectAtIndex:spriteId] objectAtIndex:0]
                     intValue];
@@ -710,11 +793,45 @@
                        doubleValue];
         double posY = [[[levelSource objectAtIndex:spriteId] objectAtIndex:2]
                        doubleValue];
+       // NSLog(@"center x: %f, center y: %f",posX,posY);;
         
         // Sprite sichtbar schalten, falls in Viewport
         if ((posX > zaehler - maxPlatformWidth) &&
             (posX < zaehler + screenWidth + maxPlatformWidth)) {
-            if (sTyp!=bratwurst) [showPlatform setCenter:posX-zaehler y:posY];
+            if (sTyp!=bratwurst) {
+                
+                [showPlatform setCenter:posX-zaehler y:posY];
+                
+                if (sTyp == stage) {
+                    float minHeight = 38;
+                    float maxHeight = 98;
+                    BOOL reversed = showPlatform.animationFlag;
+                    
+                    CGRect frame = showPlatform.frame;
+                    // platform moves down
+                    if (reversed == false) {
+                        if (frame.size.height>=minHeight) {
+                            frame.size.height -= .815;
+                        } else {
+                            frame.size.height = 38;
+                            reversed = TRUE;
+                        }
+                    } else {
+                        // platform moves up
+                        if (frame.size.height<=maxHeight) {
+                            frame.size.height += .815;
+                        } else {
+                            frame.size.height = 98;
+                            reversed = FALSE;
+                        }
+                    }
+                    showPlatform.animationFlag = reversed;
+                    showPlatform.frame = frame;
+                    [showPlatform setCenter:posX-zaehler y:posY];
+
+                  //  NSLog(@"Frame: %@",NSStringFromCGRect(showPlatform.frame));
+                }
+            }
         } else {
             
             // Plattform wieder loeschen
@@ -906,58 +1023,71 @@
 {
     //Schritte abziehen und aktualisieren 
     //currentSteps --;
-     
+   
+    
+    
+    
+   // if (playerSpeedX < 0) {
+        //steps += playerSpeedX * -1;
+   // }
+  //  else
+   // {
+    //NSLog(@"currentSteps: %d ",currentSteps);
+    
+    
+    steps = 0;
+    
   
-    if (currentSteps >= 1 *maxSteps    ) {
+    if (currentSteps <= 0.02 * maxSteps    ) {
         powerAnzeige.image = [UIImage imageNamed:@"Power.png"];
         [canvas addSubview:powerAnzeige];
 
     }
     
         // Bilder aktualisieren 
-     else if (currentSteps >= 0.9 *maxSteps && currentSteps < maxSteps   ) {
+     else if (currentSteps <= 0.1 *maxSteps  ) {
          powerAnzeige.image = [UIImage imageNamed:@"Power2.png"];
          [canvas addSubview:powerAnzeige];
  
 
      }
     
-     else if (currentSteps >= 0.8 *maxSteps && currentSteps < 0.9 *maxSteps   ) {
+     else if (currentSteps <= 0.2 *maxSteps  ) {
          powerAnzeige.image = [UIImage imageNamed:@"Power3.png"];
          [canvas addSubview:powerAnzeige];
 
 
     }
     
-     else if (currentSteps >= 0.7 *maxSteps && currentSteps < 0.8 *maxSteps  ) {
+     else if (currentSteps <= 0.3 *maxSteps    ) {
          powerAnzeige.image = [UIImage imageNamed:@"Power4.png"];
          [canvas addSubview:powerAnzeige];
 
 
      }
     
-     else if (currentSteps >= 0.6 *maxSteps && currentSteps < 0.7 *maxSteps  ) {
+     else if (currentSteps <= 0.4 *maxSteps  ) {
          powerAnzeige.image = [UIImage imageNamed:@"Power5.png"];
 
          [canvas addSubview:powerAnzeige];
 
     }
     
-     else if (currentSteps >= 0.5 *maxSteps && currentSteps < 0.6 *maxSteps ) {
+     else if (currentSteps <= 0.5 *maxSteps   ) {
          powerAnzeige.image = [UIImage imageNamed:@"Power6.png"];
          [canvas addSubview:powerAnzeige];
 
       
     }
     
-     else if (currentSteps >= 0.4 *maxSteps && currentSteps < 0.5 *maxSteps  ) {
+     else if (currentSteps <= 0.6 *maxSteps  ) {
          powerAnzeige.image = [UIImage imageNamed:@"Power7.png"];
          [canvas addSubview:powerAnzeige];
 
       
     }
     
-     else if (currentSteps >= 0.3 *maxSteps && currentSteps < 0.4 *maxSteps ) {
+     else if (currentSteps <= 0.7 *maxSteps  ) {
          powerAnzeige.image = [UIImage imageNamed:@"Power8.png"];
          [canvas addSubview:powerAnzeige];
 
@@ -965,23 +1095,22 @@
     }
     
     
-    else if (currentSteps >= 0.2 *maxSteps && currentSteps < 0.3 *maxSteps  ) {
+    else if (currentSteps <= 0.8 *maxSteps   ) {
         powerAnzeige.image = [UIImage imageNamed:@"Power9.png"];
         [canvas addSubview:powerAnzeige];
 
       
     }
-    else if (currentSteps >= 0.1 *maxSteps && currentSteps < 0.2 *maxSteps  ) {
+    else if (currentSteps <= 0.9 *maxSteps   ) {
         powerAnzeige.image = [UIImage imageNamed:@"Power10_neu.png"];
         [canvas addSubview:powerAnzeige];
 
         
     }
     //wenn 0 dann Verloren !
-   else if (currentSteps == 0 ) {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Verloren" message:@"Keine Power mehr" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: nil, nil];
-        [ alert show];
-       [self restartLevel];
+   else if (currentSteps <= maxSteps ) {
+       
+                [self restartLevel];
     }
  
     
@@ -997,9 +1126,10 @@
     if (normalAction) {
         
         zaehler+=playerSpeedX;
+       
 
-      //  [self platformUpEngine];
-        [self enemyEngine];
+
+         [self enemyEngine];
         [self platformEngine];
         [self parallaxScrolling];
         [self playerEngine];
@@ -1012,8 +1142,32 @@
 
         [self.view bringSubviewToFront:jumpButton];
         [self.view bringSubviewToFront:Level];
+         [self.view bringSubviewToFront:pause];
 
+    
+        
+        if (playerSpeedX < 0) {
+            steps += -1*playerSpeedX;
+        }
+        else
+        {
+            steps += playerSpeedX;
+        }
+        
+        
+        currentSteps +=steps;
+        
+        
+        [self powerEngine];
     }
+    
+    
+    
+    
+    
+    
+    
+    
 }
 
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -1037,8 +1191,8 @@
     // oder Laufen
     else {
         [self touchesMoved:touches withEvent:event];
-        currentSteps -= 5;
-        [self powerEngine];
+     //   currentSteps -= 3;
+       // [self powerEngine];
 
     }
        {
@@ -1056,8 +1210,8 @@
    
     {
         playerSpeedX = (coord.x-85)/5;
-        currentSteps -= 0.0005;
-        [self powerEngine];
+      //  currentSteps -= 0.005;
+       // [self powerEngine];
         
         
         if (playerSpeedX < -5) playerSpeedX=-5;
@@ -1094,5 +1248,14 @@ interfaceOrientation {
     return (interfaceOrientation == UIInterfaceOrientationLandscapeLeft);
 }
 
+#pragma  mark - Actions
+-(void)pause:(id)sender
+{
+    RetryViewController *view = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"navController"];
+    [self presentViewController:view animated:YES completion:nil];
+    
+    normalAction =NO;
 
-@end
+}
+
+    @end

@@ -13,9 +13,7 @@
 
 #import "Sprite.h"
 
-
-
-
+ 
 @interface ViewController : UIViewController {
      UIImageView *canvas;
     Sprite *player;
@@ -62,8 +60,9 @@
     
     UITextField *Level;
     
+    UIButton *pause;
+
   //  bool bewegung;
-     
 }
 
 
@@ -88,9 +87,9 @@
 //@property  int level;
 
 
-
-//DEBUG
  @property (nonatomic,strong) UITextField *Level;
+
+-(void)jumpToLevel:(int)levelNumber;
 
 @end
 

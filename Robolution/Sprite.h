@@ -10,6 +10,8 @@
 
 @property (nonatomic, strong) UIImageView *pic;
 @property (nonatomic, strong) NSMutableArray *mask;
+@property (nonatomic) BOOL isVisible;
+@property (nonatomic) BOOL animationFlag;
 
 - (id) initWithImageResource: (id) resource
      spriteTyp: (double) sTyp
@@ -37,7 +39,6 @@
 - (bool) detectCollisionWith: (Sprite *) sprite;
 - (bool) detectCollisionWithMask: (Sprite *) sprite;
 
-- (CGRect) frame;
 - (CGPoint) center;
 - (int) spriteTyp;
 - (int) movingDirection;

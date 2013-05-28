@@ -105,7 +105,13 @@
   _pic.transform = CGAffineTransformMakeScale(direction,1);
 }
 
-- (CGRect) frame {return _pic.frame;}
+- (CGRect) frame
+{
+    return _pic.frame;
+}
+- (void)setFrame:(CGRect)frame{
+    _pic.frame = frame;
+}
 - (CGPoint) center {return _pic.center;}
 - (int) spriteTyp { return spriteTyp; }
 - (int) movingDirection { return movingDirection; }
